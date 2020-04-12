@@ -1,4 +1,4 @@
-console.log('Sup')
+console.log('Server Started')
 
 //importing modules
 const express = require('express');
@@ -15,9 +15,15 @@ app.use(bodyParser.json());
 app.use(morgan('combined'));
 app.use(cors());
 
-app.get('/status', (req,res) => {
+app.get('/status', (req, res) => {
     res.send({
         message: "Hello World"
+    })
+})
+
+app.post('/register', (req, res) => {
+    res.send({
+        message: `${req.body.email} has been registered.`
     })
 })
 
