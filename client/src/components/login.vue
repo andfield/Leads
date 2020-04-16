@@ -1,11 +1,10 @@
 <template>
   <v-container fluid fill-height class="home-hero" style="max-height: 100vh;">
-    <appNav />
     <v-layout align-center justify-center>
       <v-flex xs11 sm10 md6 lg6 xl4>
         <v-card color="rgb(69, 0, 0, 0.2)" class="elevation-19">
           <v-toolbar dark color="#594217">
-            <v-toolbar-title>Register</v-toolbar-title>
+            <v-toolbar-title>Login</v-toolbar-title>
           </v-toolbar>
           <v-card-text>
             <v-text-field dark color="white" label="Email" v-model="email" outlined />
@@ -15,7 +14,7 @@
             <v-spacer />
             <v-btn to="/" dark color="#594217" class="mb-4" x-large>back</v-btn>
             <v-spacer />
-            <v-btn @click="register" dark x-large color="#594217" class="mb-4">Join the cult</v-btn>
+            <v-btn @click="login()" dark x-large color="#594217" class="mb-4">Enter the cult</v-btn>
             <v-spacer />
           </v-card-actions>
           <v-alert type="error" outlined v-model="alert" v-text="error" />
@@ -41,9 +40,9 @@ export default {
     };
   },
   methods: {
-    async register() {
+    async login() {
       try {
-        var response = await authenticationService.register({
+        const response = await authenticationService.login({
           email: this.email,
           password: this.password
         });
@@ -53,16 +52,6 @@ export default {
         this.error = error.response.data.error;
         this.alert = true;
       }
-      // try {
-      //   const response = authenticationService.register({
-      //     email: this.email,
-      //     password: this.password
-      //   });
-      // } catch (error) {
-      //   this.error = error.response.data.error;
-      //   this.alert = true;
-      // }
-      console.log(response.data.token);
     }
   }
 };

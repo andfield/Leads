@@ -10,8 +10,12 @@ module.exports = (app) => {
     app.post('/register',
         //middleware to check if data is alg.
         AuthenticationControllerPolicy.register,
-        
+
         AuthenticationController.register
+    )
+
+    app.post('/login',
+        AuthenticationController.login
     )
 
 }

@@ -13,5 +13,10 @@ module.exports = {
             storage: './tabchecker.sqlite'
 
         }
+    },
+
+    //siging the jwt token with seceret string only known by server.
+    authentication: {
+        jwtSecret: process.env.JWT_SECRET || 'secret'
     }
 }
