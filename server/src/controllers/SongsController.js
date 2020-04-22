@@ -26,4 +26,32 @@ module.exports = {
             })
         }
     },
+
+    //Get Song by Id
+    async getById(req, res) {
+        try {
+            const song = await Song.findByPk(req.params.SongId)
+            res.send(song)
+        } catch (err) {
+            res.status(500).send({
+                error: "Cant find the Song data"
+            })
+        }
+    },
+
+    //Edit Song by Id
+    async editById(req, res) {
+        try {
+            const song = await Song.update(req.body, {
+                where: {
+                    id: req.params.SongId
+                }
+            })
+            res.send(req.body)
+        } catch (err) {
+            res.status(500).send({
+                error: "Unable to update the song"
+            })
+        }
+    }
 }

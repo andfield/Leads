@@ -25,6 +25,13 @@ module.exports = (app) => {
     )
 
     app.post('/songs',
-    SongsController.CreateSong
-)
+        SongsController.CreateSong
+    )
+    app.get('/songs/:SongId',
+        SongsController.getById
+    )
+
+    app.put('songs/:SongId',
+        SongsController.editById
+    )
 }

@@ -3,8 +3,8 @@
     <appNav />
     <v-layout align-center justify-center>
       <v-flex xs11 sm10 md6 lg6 xl4>
-        <v-card color="white" class="elevation-20">
-          <v-toolbar dark color="black">
+        <v-card color="white" class="elevation-20 overflow-y-auto" style="max-height: 600px ">
+          <v-toolbar flat dark color="black">
             <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer />
             <slot name="button"></slot>
@@ -34,4 +34,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 </style>

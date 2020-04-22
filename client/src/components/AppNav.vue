@@ -23,12 +23,12 @@
       </v-list>
       <v-divider color="white" />
     </v-navigation-drawer>
-    <v-app-bar app dark flat color="rgb(0, 0, 0, 0)" class="bar">
+    <v-app-bar app dark flat color="rgb(0, 0, 0, 0)" class="bar" absolute>
       <router-link to="/">
         <v-toolbar-title class="hidden-sm-and-down header">Tabs Checker</v-toolbar-title>
       </router-link>
       <v-spacer />
-      <v-btn to="songs" outlined x-large color="white" class="button ma-5 mt-10 hidden-sm-and-down">
+      <v-btn to="/songs" outlined x-large color="white" class="button ma-5 mt-10 hidden-sm-and-down">
         <v-icon left>mdi-file-find</v-icon>Browse
       </v-btn>
       <v-btn

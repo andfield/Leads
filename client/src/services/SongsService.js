@@ -8,5 +8,13 @@ export default {
 
     CreateSong(credentials) {
         return api().post('songs', credentials)
+    },
+
+    editSong(song) {
+        return api().put(`songs/${song.id}`, song)
+    },
+
+    getById(SongId) {
+        return api().get(`songs/${SongId}`)
     }
 }

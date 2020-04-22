@@ -14,7 +14,7 @@ app.use(morgan('combined')); //Using morgan to automatically log requests,
 app.use(cors()); //Using cors to let any ip join.
 
 //connect sequelize to database and start server.
-sequelize.sync({force: true}).then(() => {
+sequelize.sync().then(() => {
     //set port and start server.
     app.listen(config.port);
     console.log(`Server has started on port ${config.port}`)

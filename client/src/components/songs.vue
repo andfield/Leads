@@ -42,6 +42,7 @@
                 <v-fade-transition>
                   <v-overlay v-if="hover" absolute color="#036358">
                     <v-btn @click="details(song.id)">See Details</v-btn>
+                    <v-btn @click="editSong(song.id)"></v-btn>
                   </v-overlay>
                 </v-fade-transition>
               </v-card>
@@ -79,7 +80,17 @@ export default {
           SongId: id
         }
       });
+    },
+    editSong(id) {
+      console.log(id);
+      this.$router.push({
+        name: "editSong",
+        params: {
+          SongId: id
+        }
+      })
     }
+
   }
 };
 </script>

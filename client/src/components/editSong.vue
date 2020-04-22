@@ -1,5 +1,5 @@
 <template>
-  <centerCard title="Create a Song">
+  <centerCard :title="title">
     <div slot="mainContent">
       <v-stepper v-model="stepper" class="step">
         <v-stepper-header>
@@ -16,22 +16,8 @@
         <!-- step 1 -->
         <v-stepper-item>
           <v-stepper-content step="1">
-            <v-text-field
-              color="black"
-              class="ma-5"
-              label="Song Name"
-              v-model="title"
-              outlined
-              :rules="[rules.required]"
-            />
-            <v-text-field
-              color="black"
-              class="ma-5"
-              label="genre"
-              v-model="genre"
-              outlined
-              :rules="[rules.required]"
-            />
+            <v-text-field color="black" class="ma-5" label="name" v-model="song.title" outlined />
+            <v-text-field color="black" class="ma-5" label="genre" v-model="song.genre" outlined />
 
             <v-btn
               outlined
@@ -59,17 +45,15 @@
               color="black"
               class="ma-5"
               label="Artist Name"
-              v-model="artist"
+              v-model="song.artist"
               outlined
-              :rules="[rules.required]"
             />
             <v-text-field
               color="black"
               class="ma-5"
               label="Album name"
-              v-model="album"
+              v-model="song.album"
               outlined
-              :rules="[rules.required]"
             />
             <v-container>
               <v-row dense>
@@ -78,9 +62,8 @@
                     color="black"
                     class="ma-2"
                     label="Album Art"
-                    v-model="albumImage"
+                    v-model="song.albumImage"
                     outlined
-                    :rules="[rules.required]"
                   />
                 </v-col>
                 <v-col cols="6">
@@ -90,12 +73,12 @@
                       <v-expansion-panel-content>
                         <v-color-picker
                           class="ma-2"
-                          v-model="accentColor"
+                          v-model="song.color"
                           hide-canvas
                           hide-inputs
                           mode="hexa"
                         ></v-color-picker>
-                        {{accentColor}}
+                        {{song.color}}
                       </v-expansion-panel-content>
                     </v-expansion-panel>
                   </v-expansion-panels>
@@ -125,25 +108,16 @@
         <!-- step 3 -->
         <v-stepper-item>
           <v-stepper-content step="3">
-            <v-textarea v-model="tabs" filled color="black" label="Tabs" rows="3" />
+            <v-textarea v-model="song.tabs" filled color="black" label="Tabs" rows="3" />
 
-            <v-textarea
-              v-model="lyrics"
-              
-              filled
-              color="black"
-              label="Lyrics"
-              rows="3"
-              :rules="[rules.required]"
-            />
+            <v-textarea v-model="song.lyrics" filled color="black" label="Lyrics" rows="3" />
 
             <v-text-field
               color="black"
               class="ma-5"
               label="Youtube Video"
-              v-model="youtubeId"
+              v-model="song.youtubeId"
               outlined
-              :rules="[rules.required]"
             />
 
             <v-btn
@@ -156,7 +130,7 @@
             >Cancel</v-btn>
 
             <v-btn
-              @click="CreateSong"
+              @click="editSong()"
               outlined
               rounded
               large
@@ -167,10 +141,6 @@
         </v-stepper-item>
       </v-stepper>
     </div>
-    <v-snackbar v-model="snackbar" :timeout="timeout">
-      {{ result }}
-      <v-btn color="blue" text @click="snackbar = false">Close</v-btn>
-    </v-snackbar>
   </centerCard>
 </template>
 
@@ -184,29 +154,19 @@ export default {
   },
   data() {
     return {
+      title: "",
       error: null,
       stepper: 1,
       snackbar: false,
-      result: {
-        msg: "",
-        color: ""
-      },
-
-      title: "",
-      artist: "",
-      genre: "",
-      album: "",
-      albumImage: "",
-      accentColor: "",
-      youtubeId: "",
-      lyrics: "",
-      tabs: "",
-
-      rules: {
-        required: value => !!value || "Required."
-      }
+      song: {}
     };
   },
+  async mounted() {
+    var songId = this.$store.state.route.params.SongId;
+    this.song = (await SongsService.getById(songId)).data;
+    this.title = "Editing: " + this.song.title;
+  },
+
   methods: {
     backtoSongs() {
       this.$router.push({
@@ -214,53 +174,17 @@ export default {
       });
     },
 
-    async CreateSong() {
-      //check everything is filled
-      if (this.title == "") {
-        this.snackbar = true
-        this.result.msg = "Please fill in the title";
-        this.result.color = "error"
-      } else if (this.artist == "") {
-        this.error = "Please fill in the artist";
-        this.result.color = "error"
-      } else if (this.genre == "") {
-        this.error = "Please fill in the genre";
-        this.result.color = "error"
-      } else if (this.album == "") {
-        this.error = "Please fill in the album";
-      } else if (this.albumImage == "") {
-        this.error = "Please fill in the albumImage";
-      } else if (this.youtubeId == "") {
-        this.error = "Please fill in all details";
-      } else if (this.lyrics == "") {
-        this.error = "Please fill in all details";
-      } else if (this.tabs == "") {
-        this.error = "Please fill in all details";
-      } else if (this.accentColor == "") {
-        this.error = "Please fill in all details";
-      } else {
-        //create the song on backend
-        try {
-          var response = await SongsService.CreateSong({
-            title: this.title,
-            artist: this.artist,
-            genre: this.genre,
-            album: this.album,
-            albumImage: this.albumImage,
-            color: this.accentColor,
-            youtubeId: this.youtubeId,
-            lyrics: this.lyrics,
-            tabs: this.tabs
-          });
-          this.$router.push({
-            name: "songs"
-          });
-        } catch (error) {
-          this.error = error.response.data.error;
-          console.log(this.error);
-        }
-        console.log(response.data);
+    async editSong() {
+      //Editing the song on backend
+      var songId = this.$store.state.route.params.SongId;
+      try {
+        var response = await SongsService.editSong(this.song);
+        backtoSongs()
+      } catch (error) {
+        this.error = error.response.data.error;
+        console.log(this.error);
       }
+      console.log(response.data);
     }
   }
 };
