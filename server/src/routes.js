@@ -31,7 +31,7 @@ module.exports = (app) => {
         SongsController.getById
     )
 
-    app.put('songs/:SongId',
+    app.put('/songs/editSong/:SongId',
         SongsController.editById
     )
 }

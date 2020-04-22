@@ -44,7 +44,7 @@ module.exports = {
         try {
             const song = await Song.update(req.body, {
                 where: {
-                    id: req.params.SongId
+                    id: req.body.id
                 }
             })
             res.send(req.body)

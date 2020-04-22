@@ -179,7 +179,12 @@ export default {
       var songId = this.$store.state.route.params.SongId;
       try {
         var response = await SongsService.editSong(this.song);
-        backtoSongs()
+        this.$router.push({
+          name: "song",
+          params: {
+            SongId: songId
+          }
+        })
       } catch (error) {
         this.error = error.response.data.error;
         console.log(this.error);
