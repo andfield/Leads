@@ -194,6 +194,7 @@ export default {
 
       title: "",
       artist: "",
+      userId: this.$store.state.user.id,
       genre: "",
       album: "",
       albumImage: "",
@@ -201,6 +202,7 @@ export default {
       youtubeId: "",
       lyrics: "",
       tabs: "",
+
 
       rules: {
         required: value => !!value || "Required."
@@ -238,7 +240,10 @@ export default {
         this.error = "Please fill in all details";
       } else if (this.accentColor == "") {
         this.error = "Please fill in all details";
-      } else {
+      } else if (!this.$store.state.isUserLoggedIn) {
+        this.error = "Please Log in first"
+      }
+      else {
         //create the song on backend
         try {
           var response = await SongsService.CreateSong({

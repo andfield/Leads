@@ -34,4 +34,8 @@ module.exports = (app) => {
     app.put('/songs/editSong/:SongId',
         SongsController.editById
     )
+
+    app.get('/myAccount/:userId',
+        SongsController.getByUser
+    )
 }

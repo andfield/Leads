@@ -7,6 +7,7 @@ import songs from '@/components/songs'
 import CreateSong from '@/components/CreateSong'
 import song from '@/components/song'
 import editSong from '@/components/editSong'
+import userAccount from '@/components/userAccount'
 
 Vue.use(Router)
 
@@ -26,6 +27,11 @@ export default new Router({
       path: '/login',
       name: 'login',
       component: login
+    },
+    {
+      path: '/myAccount',
+      name: 'myAccount',
+      component: userAccount
     },
     {
       path: '/songs',

@@ -42,7 +42,7 @@
                 <v-fade-transition>
                   <v-overlay v-if="hover" absolute color="#036358">
                     <v-btn @click="details(song.id)">See Details</v-btn>
-                    <v-btn @click="editSong(song.id)"></v-btn>
+                    <v-btn @click="editSong(song.id)">Edit</v-btn>
                   </v-overlay>
                 </v-fade-transition>
               </v-card>
@@ -64,7 +64,8 @@ export default {
   data() {
     return {
       songs: null,
-      overlay: false
+      overlay: false,
+      user: this.$store.state.user
     };
   },
   async mounted() {
@@ -83,14 +84,15 @@ export default {
     },
     editSong(id) {
       console.log(id);
-      this.$router.push({
-        name: "editSong",
-        params: {
-          SongId: id
-        }
-      })
+      if (user.email) {
+        this.$router.push({
+          name: "editSong",
+          params: {
+            SongId: id
+          }
+        });
+      }
     }
-
   }
 };
 </script>

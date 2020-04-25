@@ -15,6 +15,22 @@ module.exports = {
         }
     },
 
+    //get all songs created by current user
+    async getByUser(req,res){
+        try{
+            const songs = await Song.findAll({
+                where:{
+                    userId: req.params.userId
+                }
+            })
+            res.send(songs)
+        } catch(err){
+            res.status(500).send({
+                error: 'Oops something went wrong in finding your songs!!'
+            })
+        }
+    },
+
     //Create a song 
     async CreateSong(req, res) {
         try {

@@ -4,6 +4,7 @@
       <v-card-text>
         <v-text-field color="black" label="Email" v-model="email" outlined />
         <v-text-field color="black" label="Pasword" v-model="password" outlined />
+        <v-text-field color="black" label="Username" v-model="username" outlined />
       </v-card-text>
       <v-card-actions>
         <v-spacer />
@@ -28,6 +29,7 @@ export default {
     return {
       email: "",
       password: "",
+      username: "",
       error: null,
       alert: false
     };
@@ -37,10 +39,14 @@ export default {
       try {
         var response = await authenticationService.register({
           email: this.email,
-          password: this.password
+          password: this.password,
+          username: this.username
         });
         this.$store.dispatch("setToken", response.data.token);
         this.$store.dispatch("setUser", response.data.user);
+        this.$router.push({
+            name: 'myAccount'
+        })
       } catch (error) {
         this.error = error.response.data.error;
         this.alert = true;

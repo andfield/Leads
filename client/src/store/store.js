@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+import Cookies from 'js-cookie';
 
 Vue.use(Vuex)
 
@@ -16,9 +18,9 @@ export default new Vuex.Store({
     mutations: {
         setToken(state, token) {
             state.token = token;
-            if(token) {
+            if (token) {
                 state.isUserLoggedIn = true
-            }else{
+            } else {
                 state.isUserLoggedIn = false
             }
         },
@@ -34,5 +36,7 @@ export default new Vuex.Store({
         setUser({ commit }, user) {
             commit('setUser', user)
         }
-    }
+    },
+    plugins: [createPersistedState()]
+
 })

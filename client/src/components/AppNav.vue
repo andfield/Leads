@@ -20,6 +20,18 @@
           </v-list-item-icon>
           <v-list-item-content>login</v-list-item-content>
         </v-list-item>
+        <v-list-item v-if="!$store.state.isUserLoggedIn" to="login">
+          <v-list-item-icon>
+            <v-icon large>mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>Account</v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="$store.state.isUserLoggedIn" @click="logout">
+          <v-list-item-icon>
+            <v-icon large>mdi-account</v-icon>
+          </v-list-item-icon>
+          <v-list-item-content>logout</v-list-item-content>
+        </v-list-item>
       </v-list>
       <v-divider color="white" />
     </v-navigation-drawer>
@@ -28,7 +40,13 @@
         <v-toolbar-title class="hidden-sm-and-down header">Tabs Checker</v-toolbar-title>
       </router-link>
       <v-spacer />
-      <v-btn to="/songs" outlined x-large color="white" class="button ma-5 mt-10 hidden-sm-and-down">
+      <v-btn
+        to="/songs"
+        outlined
+        x-large
+        color="white"
+        class="button ma-5 mt-10 hidden-sm-and-down"
+      >
         <v-icon left>mdi-file-find</v-icon>Browse
       </v-btn>
       <v-btn

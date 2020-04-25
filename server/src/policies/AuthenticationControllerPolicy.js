@@ -7,7 +7,8 @@ module.exports = {
             email: Joi.string().email(),
             password: Joi.string().regex(
                 new RegExp('^[a-zA-Z0-9]{8,32}$')
-            )
+            ),
+            username: Joi.string()
         }
         const { error, value } = Joi.validate(req.body, schema)
 
@@ -21,7 +22,12 @@ module.exports = {
                 res.status(400).send({
                     error: 'Invalid password'
                 })
-            } else {
+            } else if (errirType == 'username') {
+                res.status(400).send({
+                    error: 'Invalid username'
+                })
+            }
+            else {
                 res.status(400).send({
                     error: 'Ohh sheeit.. Server Down'
                 })

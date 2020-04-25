@@ -14,5 +14,8 @@ export default {
     },
     getById(SongId) {
         return api().get(`songs/${SongId}`)
+    },
+    getByUser(userId){
+        return api().get(`myAccount/${userId}`)
     }
 }
