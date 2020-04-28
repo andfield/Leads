@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import AppNav from "./AppNav";
+import AppNav from './AppNav'
 export default {
   components: {
     AppNav
   }
-};
+}
 </script>
 
 <style scoped>
