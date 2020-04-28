@@ -1,21 +1,25 @@
 <template>
   <v-container fluid fill-height class="home-hero" style="max-height: 100vh;">
     <AppNav />
-    <div class="banner">
+    <div class="banner" v-if="!this.$store.state.isUserLoggedIn">
       <h1>Tabs Checker</h1>
       <h2>Connect with your music not appereance</h2>
       <v-btn to="register" outlined rounded large color="#F3E367" class="btn ma-5">
         <v-icon left large>mdi-guitar-acoustic</v-icon>Connect now
       </v-btn>
     </div>
+
+    <songs v-if="this.$store.state.isUserLoggedIn"/>
   </v-container>
 </template>
 
 <script>
-import AppNav from './AppNav'
+import AppNav from "./AppNav";
+import songs from "./songs";
 export default {
   components: {
-    AppNav
+    AppNav,
+    songs
   }
 }
 </script>
@@ -53,6 +57,15 @@ h2 {
   }
   h2 {
     font-size: 2em;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .h1 {
+    font-size: 40px;
+  }
+  h2 {
+    font-size: 28px;
   }
 }
 </style>

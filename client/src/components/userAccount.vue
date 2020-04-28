@@ -1,37 +1,40 @@
 <template>
-  <centerCard :title="user.username">
-    <div slot="mainContent">
-      <h2>Songs</h2>
-      <v-divider />
-      <ul>
-        <li>title:</li>
-        <li>artist:</li>
-        <li>genre:</li>
-      </ul>
-    </div>
-  </centerCard>
+  <v-container fluid fill-height class="home-hero" style="max-height: 100vh;">
+    <v-app-bar color="rgb(0,0,0,0)" dense dark app flat>
+      
+
+
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+    </v-app-bar> 
+    <songs />
+  </v-container>
 </template>
 
 <script>
-import appNav from './AppNav'
-import centerCard from './CenterCardPanel'
-import SongsService from '../services/SongsService'
+import appNav from "./AppNav";
+import songs from "./songs";
+import SongsService from "../services/SongsService";
 export default {
   components: {
     appNav,
-    centerCard
+    songs
   },
   data () {
     return {
-      user: this.$store.state.user,
+      user: null,
       songs: null
     }
   },
-  async mounted () {
-    this.songs = (await SongsService.getByUser(this.user.id)).data
+  async mounted() {
+    this.songs = (await SongsService.getByUser(this.user.id)).data;
   }
 }
 </script>
 
 <style scoped>
+.header {
+  font-family: "Shadows Into Light", cursive;
+}
 </style>

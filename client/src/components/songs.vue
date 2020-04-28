@@ -42,7 +42,7 @@
                 <v-fade-transition>
                   <v-overlay v-if="hover" absolute color="#036358">
                     <v-btn @click="details(song.id)">See Details</v-btn>
-                    <v-btn @click="editSong(song.id)">Edit</v-btn>
+                    <v-btn v-if="$store.state.isUserLoggedIn" @click="editSong(song.id)">Edit</v-btn>
                   </v-overlay>
                 </v-fade-transition>
               </v-card>
@@ -65,12 +65,13 @@ export default {
     return {
       songs: null,
       overlay: false,
-      user: this.$store.state.user
-    }
+      user: null
+    };
   },
-  async mounted () {
-    // request backend for all the songs
-    this.songs = (await SongsService.getAllSongs()).data
+  async mounted() {
+    this.user = this.$store.state.user
+    //request backend for all the songs
+    this.songs = (await SongsService.getAllSongs()).data;
   },
   methods: {
     details (id) {
@@ -82,15 +83,15 @@ export default {
         }
       })
     },
-    editSong (id) {
-      console.log(id)
-      if (this.user.email) {
+    editSong(id) {
+      console.log(id);
+      if (user.email) {
         this.$router.push({
-          name: 'editSong',
+          name: "editSong",
           params: {
             SongId: id
           }
-        })
+        });
       }
     }
   }
