@@ -86,22 +86,22 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       drawer: false
-    };
+    }
   },
 
   methods: {
-    logout() {
-      this.$store.dispatch("setToken", null);
-      this.$store.dispatch("setUser", null);
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
       this.$router.push({
-        name: "HelloWorld"
-      });
+        name: 'HelloWorld'
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>

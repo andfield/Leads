@@ -53,7 +53,7 @@ export default new Router({
       path: '/songs/editSong/:SongId',
       name: 'editSong',
       component: editSong
-    },
+    }
 
   ],
   mode: 'history'

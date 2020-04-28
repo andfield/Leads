@@ -13,24 +13,24 @@
 </template>
 
 <script>
-import appNav from "./AppNav";
-import centerCard from "./CenterCardPanel";
-import SongsService from "../services/SongsService";
+import appNav from './AppNav'
+import centerCard from './CenterCardPanel'
+import SongsService from '../services/SongsService'
 export default {
   components: {
     appNav,
     centerCard
   },
-  data() {
+  data () {
     return {
       user: this.$store.state.user,
       songs: null
-    };
+    }
   },
-  async mounted() {
-    this.songs = (await SongsService.getByUser(this.user.id)).data;
+  async mounted () {
+    this.songs = (await SongsService.getByUser(this.user.id)).data
   }
-};
+}
 </script>
 
 <style scoped>

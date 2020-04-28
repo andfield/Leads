@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "lint": "eslint .",
+    "start": "npm run lint && node src/app.js"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

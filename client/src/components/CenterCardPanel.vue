@@ -17,19 +17,19 @@
 </template>
 
 <script>
-import appNav from "./AppNav";
+import appNav from './AppNav'
 export default {
   components: {
     appNav
   },
-  data() {
+  data () {
     return {
       //   title: "hello world"
-    };
+    }
   },
-  props: ["title"],
+  props: ['title'],
   methods: {}
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

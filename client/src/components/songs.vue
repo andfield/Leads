@@ -55,44 +55,44 @@
 </template>
 
 <script>
-import centerCard from "./CenterCardPanel";
-import SongsService from "../services/SongsService";
+import centerCard from './CenterCardPanel'
+import SongsService from '../services/SongsService'
 export default {
   components: {
     centerCard
   },
-  data() {
+  data () {
     return {
       songs: null,
       overlay: false,
       user: this.$store.state.user
-    };
+    }
   },
-  async mounted() {
-    //request backend for all the songs
-    this.songs = (await SongsService.getAllSongs()).data;
+  async mounted () {
+    // request backend for all the songs
+    this.songs = (await SongsService.getAllSongs()).data
   },
   methods: {
-    details(id) {
-      console.log(id);
+    details (id) {
+      console.log(id)
       this.$router.push({
-        name: "song",
+        name: 'song',
         params: {
           SongId: id
         }
-      });
+      })
     },
-    editSong(id) {
-      console.log(id);
-      if (user.email) {
+    editSong (id) {
+      console.log(id)
+      if (this.user.email) {
         this.$router.push({
-          name: "editSong",
+          name: 'editSong',
           params: {
             SongId: id
           }
-        });
+        })
       }
     }
   }
-};
+}
 </script>

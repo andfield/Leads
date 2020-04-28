@@ -19,37 +19,37 @@
 </template>
 
 <script>
-import authenticationService from "../services/authenticationService.js";
-import centerCard from "./CenterCardPanel";
+import authenticationService from '../services/authenticationService.js'
+import centerCard from './CenterCardPanel'
 export default {
   components: {
     centerCard
   },
-  data() {
+  data () {
     return {
-      email: "",
-      password: "",
-      username: "",
+      email: '',
+      password: '',
+      username: '',
       error: null,
       alert: false
-    };
+    }
   },
   methods: {
-    async register() {
+    async register () {
       try {
         var response = await authenticationService.register({
           email: this.email,
           password: this.password,
           username: this.username
-        });
-        this.$store.dispatch("setToken", response.data.token);
-        this.$store.dispatch("setUser", response.data.user);
+        })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
         this.$router.push({
-            name: 'myAccount'
+          name: 'myAccount'
         })
       } catch (error) {
-        this.error = error.response.data.error;
-        this.alert = true;
+        this.error = error.response.data.error
+        this.alert = true
       }
       // try {
       //   const response = authenticationService.register({
@@ -60,10 +60,10 @@ export default {
       //   this.error = error.response.data.error;
       //   this.alert = true;
       // }
-      console.log(response.data.token);
+      console.log(response.data.token)
     }
   }
-};
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

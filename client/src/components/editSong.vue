@@ -144,55 +144,54 @@
   </centerCard>
 </template>
 
-
 <script>
-import centerCard from "./CenterCardPanel";
-import SongsService from "../services/SongsService";
+import centerCard from './CenterCardPanel'
+import SongsService from '../services/SongsService'
 export default {
   components: {
     centerCard
   },
-  data() {
+  data () {
     return {
-      title: "",
+      title: '',
       error: null,
       stepper: 1,
       snackbar: false,
       song: {}
-    };
+    }
   },
-  async mounted() {
-    var songId = this.$store.state.route.params.SongId;
-    this.song = (await SongsService.getById(songId)).data;
-    this.title = "Editing: " + this.song.title;
+  async mounted () {
+    var songId = this.$store.state.route.params.SongId
+    this.song = (await SongsService.getById(songId)).data
+    this.title = 'Editing: ' + this.song.title
   },
 
   methods: {
-    backtoSongs() {
+    backtoSongs () {
       this.$router.push({
-        name: "songs"
-      });
+        name: 'songs'
+      })
     },
 
-    async editSong() {
-      //Editing the song on backend
-      var songId = this.$store.state.route.params.SongId;
+    async editSong () {
+      // Editing the song on backend
+      var songId = this.$store.state.route.params.SongId
       try {
-        var response = await SongsService.editSong(this.song);
+        var response = await SongsService.editSong(this.song)
         this.$router.push({
-          name: "song",
+          name: 'song',
           params: {
             SongId: songId
           }
         })
       } catch (error) {
-        this.error = error.response.data.error;
-        console.log(this.error);
+        this.error = error.response.data.error
+        console.log(this.error)
       }
-      console.log(response.data);
+      console.log(response.data)
     }
   }
-};
+}
 </script>
 <style scoped>
 .step {
