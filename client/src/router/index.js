@@ -7,7 +7,8 @@ import songs from '@/components/songs'
 import CreateSong from '@/components/CreateSong'
 import song from '@/components/song'
 import editSong from '@/components/editSong'
-import userAccount from '@/components/userAccount'
+import dashboard from '@/components/Dashboard/layout'
+import store from '../store/store'
 
 Vue.use(Router)
 
@@ -29,11 +30,6 @@ export default new Router({
       component: login
     },
     {
-      path: '/myAccount',
-      name: 'myAccount',
-      component: userAccount
-    },
-    {
       path: '/songs',
       name: 'songs',
       component: songs
@@ -41,7 +37,18 @@ export default new Router({
     {
       path: '/songs/create',
       name: 'create',
-      component: CreateSong
+      component: CreateSong,
+      meta: {
+        auth: true
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.state.isUserLoggedIn) {
+          next();
+        } else {
+          console.log("Access Denied");
+        }
+      }
+
     },
     {
       path: '/songs/:SongId',
@@ -52,9 +59,40 @@ export default new Router({
     {
       path: '/songs/editSong/:SongId',
       name: 'editSong',
-      component: editSong
+      component: editSong,
+      meta: {
+        auth: true
+      },
+      beforeEnter: (to, from, next) => {
+        if (store.state.isUserLoggedIn) {
+          next();
+        } else {
+          console.log("Access Denied");
+        }
+      }
+
     },
 
+    {
+      path: '/dashboard/',
+      name: 'dashboard',
+      component: dashboard,
+      meta: {
+        auth: true
+      },
+      beforeEnter: (tp, from, next) => {
+        if (store.state.isUserLoggedIn) {
+          next();
+        } else {
+          next({
+            name: "HelloWorld"
+          })
+          console.log("Access Denied");
+        }
+      }
+    }
+
   ],
-  mode: 'history'
+  mode: 'history',
+
 })

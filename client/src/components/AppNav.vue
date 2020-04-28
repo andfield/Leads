@@ -1,6 +1,20 @@
 <template>
   <span>
     <v-navigation-drawer color="rgb(0,0,0,0)" app v-model="drawer" temporary absolute>
+      <template v-slot:prepend>
+        <v-list-item two-line dark>
+          <v-list-item-avatar v-if="loggedin">
+            <span class="yellow--text headline">{{user.username.charAt(0).toUpperCase()}}</span>
+          </v-list-item-avatar>
+
+          <v-list-item-content v-if="loggedin">
+            <v-list-item-title>{{user.username}}</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </template>
+
+      <v-divider></v-divider>
+
       <v-list dark nav>
         <v-list-item to="songs">
           <v-list-item-icon>
@@ -20,7 +34,7 @@
           </v-list-item-icon>
           <v-list-item-content>login</v-list-item-content>
         </v-list-item>
-        <v-list-item v-if="!$store.state.isUserLoggedIn" to="login">
+        <v-list-item v-if="$store.state.isUserLoggedIn" to="myAccount">
           <v-list-item-icon>
             <v-icon large>mdi-account</v-icon>
           </v-list-item-icon>
@@ -36,19 +50,10 @@
       <v-divider color="white" />
     </v-navigation-drawer>
     <v-app-bar app dark flat color="rgb(0, 0, 0, 0)" class="bar" absolute>
-      <router-link to="/">
-        <v-toolbar-title class="hidden-sm-and-down header">Tabs Checker</v-toolbar-title>
+      <router-link to="/dashboard">
+        <v-toolbar-title class="header hidden-md-and-down">Tabs Checker</v-toolbar-title>
       </router-link>
       <v-spacer />
-      <v-btn
-        to="/songs"
-        outlined
-        x-large
-        color="white"
-        class="button ma-5 mt-10 hidden-sm-and-down"
-      >
-        <v-icon left>mdi-file-find</v-icon>Browse
-      </v-btn>
       <v-btn
         to="login"
         v-if="!$store.state.isUserLoggedIn"
@@ -88,10 +93,15 @@
 export default {
   data() {
     return {
-      drawer: false
+      drawer: false,
+      user: null,
+      search: "",
+      loggedin: this.$store.state.isUserLoggedIn
     };
   },
-
+  async mounted() {
+    this.user = this.$store.state.user;
+  },
   methods: {
     logout() {
       this.$store.dispatch("setToken", null);
@@ -114,8 +124,4 @@ export default {
   font-family: "Shadows Into Light", cursive;
 }
 
-a {
-  text-decoration: none;
-  color: white;
-}
 </style>

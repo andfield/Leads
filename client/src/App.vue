@@ -21,6 +21,10 @@ export default {
 </script>
 
 <style >
+a {
+  text-decoration: none;
+  color: white;
+}
 /* .home-hero {
   background: url("./assets/img.jpg");
   background-position: center center;
