@@ -5,10 +5,10 @@
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld";
+import HelloWorld from './components/HelloWorld'
 
 export default {
-  name: "App",
+  name: 'App',
 
   components: {
     HelloWorld
@@ -17,7 +17,7 @@ export default {
   data: () => ({
     //
   })
-};
+}
 </script>
 
 <style >
@@ -68,4 +68,3 @@ a {
     position: relative; */
 }
 </style>
-

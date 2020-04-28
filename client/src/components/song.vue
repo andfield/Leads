@@ -53,37 +53,37 @@
 </template>
 
 <script>
-import SongService from "../services/SongsService";
-import appNav from "./AppNav";
-import CenterCard from "./CenterCardPanel";
-import { getIdFromURL } from "vue-youtube-embed";
+import SongService from '../services/SongsService'
+import appNav from './AppNav'
+import CenterCard from './CenterCardPanel'
+// import { getIdFromURL } from 'vue-youtube-embed'
 export default {
   components: {
     appNav,
     CenterCard
   },
-  data() {
+  data () {
     return {
       song: {},
-      id: ""
-    };
+      id: ''
+    }
   },
 
-  async mounted() {
-    var SongId = this.$store.state.route.params.SongId;
-    console.log(SongId);
-    this.song = (await SongService.getById(SongId)).data;
-    var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-    var match = this.song.youtubeId.match(regExp);
-    if (match && match[2].length == 11) {
-      this.id = match[2];
-      console.log(match[2]);
+  async mounted () {
+    var SongId = this.$store.state.route.params.SongId
+    console.log(SongId)
+    this.song = (await SongService.getById(SongId)).data
+    var regExp = /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/
+    var match = this.song.youtubeId.match(regExp)
+    if (match && match[2].length === 11) {
+      this.id = match[2]
+      console.log(match[2])
     }
   },
   methods: {
-    youtube_parser() {}
+    youtube_parser () {}
   }
-};
+}
 </script>
 
 <style scoped>

@@ -129,7 +129,7 @@
 
             <v-textarea
               v-model="lyrics"
-              
+
               filled
               color="black"
               label="Lyrics"
@@ -174,77 +174,74 @@
   </centerCard>
 </template>
 
-
 <script>
-import centerCard from "./CenterCardPanel";
-import SongsService from "../services/SongsService";
+import centerCard from './CenterCardPanel'
+import SongsService from '../services/SongsService'
 export default {
   components: {
     centerCard
   },
-  data() {
+  data () {
     return {
       error: null,
       stepper: 1,
       snackbar: false,
       result: {
-        msg: "",
-        color: ""
+        msg: '',
+        color: ''
       },
 
-      title: "",
-      artist: "",
+      title: '',
+      artist: '',
       userId: this.$store.state.user.id,
-      genre: "",
-      album: "",
-      albumImage: "",
-      accentColor: "",
-      youtubeId: "",
-      lyrics: "",
-      tabs: "",
-
+      genre: '',
+      album: '',
+      albumImage: '',
+      accentColor: '',
+      youtubeId: '',
+      lyrics: '',
+      tabs: '',
 
       rules: {
-        required: value => !!value || "Required."
+        required: value => !!value || 'Required.'
       }
-    };
+    }
   },
   methods: {
-    backtoSongs() {
+    backtoSongs () {
       this.$router.push({
-        name: "songs"
-      });
+        name: 'songs'
+      })
     },
 
-    async CreateSong() {
-      //check everything is filled
-      if (this.title == "") {
+    async CreateSong () {
+      // check everything is filled
+      if (this.title === '') {
         this.snackbar = true
-        this.result.msg = "Please fill in the title";
-        this.result.color = "error"
-      } else if (this.artist == "") {
-        this.error = "Please fill in the artist";
-        this.result.color = "error"
-      } else if (this.genre == "") {
-        this.error = "Please fill in the genre";
-        this.result.color = "error"
-      } else if (this.album == "") {
-        this.error = "Please fill in the album";
-      } else if (this.albumImage == "") {
-        this.error = "Please fill in the albumImage";
-      } else if (this.youtubeId == "") {
-        this.error = "Please fill in all details";
-      } else if (this.lyrics == "") {
-        this.error = "Please fill in all details";
-      } else if (this.tabs == "") {
-        this.error = "Please fill in all details";
-      } else if (this.accentColor == "") {
-        this.error = "Please fill in all details";
+        this.result.msg = 'Please fill in the title'
+        this.result.color = 'error'
+      } else if (this.artist === '') {
+        this.error = 'Please fill in the artist'
+        this.result.color = 'error'
+      } else if (this.genre === '') {
+        this.error = 'Please fill in the genre'
+        this.result.color = 'error'
+      } else if (this.album === '') {
+        this.error = 'Please fill in the album'
+      } else if (this.albumImage === '') {
+        this.error = 'Please fill in the albumImage'
+      } else if (this.youtubeId === '') {
+        this.error = 'Please fill in all details'
+      } else if (this.lyrics === '') {
+        this.error = 'Please fill in all details'
+      } else if (this.tabs === '') {
+        this.error = 'Please fill in all details'
+      } else if (this.accentColor === '') {
+        this.error = 'Please fill in all details'
       } else if (!this.$store.state.isUserLoggedIn) {
-        this.error = "Please Log in first"
-      }
-      else {
-        //create the song on backend
+        this.error = 'Please Log in first'
+      } else {
+        // create the song on backend
         try {
           var response = await SongsService.CreateSong({
             title: this.title,
@@ -256,19 +253,19 @@ export default {
             youtubeId: this.youtubeId,
             lyrics: this.lyrics,
             tabs: this.tabs
-          });
+          })
           this.$router.push({
-            name: "songs"
-          });
+            name: 'songs'
+          })
         } catch (error) {
-          this.error = error.response.data.error;
-          console.log(this.error);
+          this.error = error.response.data.error
+          console.log(this.error)
         }
-        console.log(response.data);
+        console.log(response.data)
       }
     }
   }
-};
+}
 </script>
 <style scoped>
 .step {

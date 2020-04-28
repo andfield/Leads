@@ -21,7 +21,7 @@ export default {
     AppNav,
     songs
   }
-};
+}
 </script>
 
 <style scoped>

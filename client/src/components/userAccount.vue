@@ -21,17 +21,16 @@ export default {
     appNav,
     songs
   },
-  data() {
+  data () {
     return {
       user: null,
       songs: null
-    };
+    }
   },
   async mounted() {
-    this.user = this.$store.state.user;
     this.songs = (await SongsService.getByUser(this.user.id)).data;
   }
-};
+}
 </script>
 
 <style scoped>

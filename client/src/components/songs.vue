@@ -55,13 +55,13 @@
 </template>
 
 <script>
-import centerCard from "./CenterCardPanel";
-import SongsService from "../services/SongsService";
+import centerCard from './CenterCardPanel'
+import SongsService from '../services/SongsService'
 export default {
   components: {
     centerCard
   },
-  data() {
+  data () {
     return {
       songs: null,
       overlay: false,
@@ -74,25 +74,26 @@ export default {
     this.songs = (await SongsService.getAllSongs()).data;
   },
   methods: {
-    details(id) {
-      console.log(id);
+    details (id) {
+      console.log(id)
       this.$router.push({
-        name: "song",
+        name: 'song',
         params: {
           SongId: id
         }
-      });
+      })
     },
     editSong(id) {
       console.log(id);
-
-      this.$router.push({
-        name: "editSong",
-        params: {
-          SongId: id
-        }
-      });
+      if (user.email) {
+        this.$router.push({
+          name: "editSong",
+          params: {
+            SongId: id
+          }
+        });
+      }
     }
   }
-};
+}
 </script>
