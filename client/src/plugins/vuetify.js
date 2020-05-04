@@ -6,7 +6,7 @@ import '@mdi/font/css/materialdesignicons.css'
 
 Vue.use(Vuetify)
 
-const opts = {
+const opts={
   icons: {
     iconfont: 'mdi' // default - only for display purposes
   }

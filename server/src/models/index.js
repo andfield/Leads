@@ -14,6 +14,7 @@ const sequelize = new Sequelize(
 
 // read through current dir
 fs.readdirSync(__dirname)
+
 // filter everything but index.js
   .filter((file) =>
     file !== 'index.js'

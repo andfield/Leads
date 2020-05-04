@@ -1,8 +1,9 @@
-const AuthenticationController = require('./controllers/AuthenticationController')
-const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
-const SongsController = require('./controllers/SongsController')
+const AuthenticationController=require('./controllers/AuthenticationController')
+const AuthenticationControllerPolicy=require('./policies/AuthenticationControllerPolicy')
+const SongsController=require('./controllers/SongsController')
+const socialController=require('./controllers/socialController')
 
-module.exports = (app) => {
+module.exports=(app) => {
   app.get('/status', (req, res) => {
     res.send({
       message: 'Hello World'
@@ -37,5 +38,14 @@ module.exports = (app) => {
 
   app.get('/myAccount/:userId',
     SongsController.getByUser
+  )
+
+  app.get('/people',
+    socialController.getAllUsers
+
+  )
+
+  app.post('/people/follow',
+    socialController.follow
   )
 }
