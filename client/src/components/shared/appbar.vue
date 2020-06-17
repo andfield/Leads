@@ -2,8 +2,12 @@
 	<nav>
 		<!-- App Bar -->
 		<v-app-bar app class="appbar" color="#607d8b" dense flat>
-			<v-app-bar-nav-icon @click.stop="drawer = !drawer" color="#e0f2f1" />
-			<router-link to="/dashboard">
+			<v-app-bar-nav-icon
+				v-if="['landingpage'].indexOf($route.name) === -1"
+				@click.stop="drawer = !drawer"
+				color="#e0f2f1"
+			/>
+			<router-link to="/">
 				<v-toolbar-title class=" align-center appbar">
 					<v-icon class=" align-center appbar mx-2 mb-3" large
 						>mdi-guitar-acoustic</v-icon
@@ -16,7 +20,15 @@
 
 			<v-tooltip v-for="item in nonUser" :key="item.text" bottom>
 				<template v-slot:activator="{ on }">
-					<v-btn small outlined fab v-on="on" color="#e0f2f1" class="mx-2">
+					<v-btn
+						:to="item.url"
+						small
+						outlined
+						fab
+						v-on="on"
+						color="#e0f2f1"
+						class="mx-2"
+					>
 						<v-icon>{{ item.icon }}</v-icon>
 					</v-btn>
 				</template>
@@ -25,7 +37,26 @@
 		</v-app-bar>
 
 		<!-- Navigation drawer -->
-		<v-navigation-drawer v-model="drawer" app class="drawer" color="#607d8b">
+		<v-navigation-drawer
+			v-if="['landingpage'].indexOf($route.name) === -1"
+			v-model="drawer"
+			app
+			class="drawer"
+			color="#607d8b"
+		>
+			<v-app-bar-nav-icon
+				v-if="['landingpage'].indexOf($route.name) === -1"
+				@click.stop="drawer = !drawer"
+				color="#e0f2f1"
+			/>
+			<router-link to="/">
+				<v-toolbar-title class=" align-center appbar">
+					<v-icon class=" align-center appbar mx-2 mb-3" large
+						>mdi-guitar-acoustic</v-icon
+					>
+					<span class="head">Tabs Checker</span>
+				</v-toolbar-title>
+			</router-link>
 			<v-list list dense color="#e0f2f1" class="mt-11">
 				<v-list-item
 					v-for="item in nonUser"
@@ -64,10 +95,13 @@
 					<v-list-item-title>Logout</v-list-item-title>
 				</v-list-item>
 
-				<v-subheader class="mt-4 grey--text text--darken-1"
+				<!-- 	<v-subheader class="mt-4 grey--text text--darken-1"
 					>Active Friends</v-subheader
 				>
-				<v-list>
+
+			<v-list>
+
+			
 					<v-list-item v-for="item in items2" :key="'C' + item.text" link>
 						<v-list-item-avatar>
 							<img
@@ -79,7 +113,7 @@
 						</v-list-item-avatar>
 						<v-list-item-title v-text="item.text" />
 					</v-list-item>
-				</v-list>
+				</v-list> -->
 			</v-list>
 		</v-navigation-drawer>
 	</nav>

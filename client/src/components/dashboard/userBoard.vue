@@ -1,5 +1,6 @@
 <template>
 	<span>
+		<appbar />
 		<div class="team" v-for="item in genres" :key="item.title">
 			<v-container>
 				<h1 class="subheading grey--text">{{ item.title }}</h1>

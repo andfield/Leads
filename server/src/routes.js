@@ -2,6 +2,7 @@ const AuthenticationController=require('./controllers/AuthenticationController')
 const AuthenticationControllerPolicy=require('./policies/AuthenticationControllerPolicy')
 const SongsController=require('./controllers/SongsController')
 const socialController=require('./controllers/socialController')
+const emailController = require('./controllers/emailController')
 
 module.exports=(app) => {
   app.get('/status', (req, res) => {
@@ -47,5 +48,9 @@ module.exports=(app) => {
 
   app.post('/people/follow',
     socialController.follow
+  )
+
+  app.post('/emailStayTuned',
+    emailController.StayTuned
   )
 }
